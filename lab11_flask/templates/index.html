@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Головна{% endblock %}
+{% block content %}
+<section class="hero rounded-4 p-5 mb-4 text-white">
+  <h1 class="display-5 fw-bold">Луна Дніпра</h1>
+  <p class="lead">Київський інді-рок гурт. Пісні про місто, річку і дорогу додому.</p>
+  <a class="btn btn-light btn-lg" href="{{ url_for('albums') }}">Слухати альбоми</a>
+</section>
+
+<h2 class="h4 mb-3">Останні релізи</h2>
+<div class="row g-3">
+  {% for album in latest %}
+    <div class="col-md-4">{% include "_album_card.html" %}</div>
+  {% else %}
+    <p class="text-muted">Альбомів поки немає.</p>
+  {% endfor %}
+</div>
+{% endblock %}

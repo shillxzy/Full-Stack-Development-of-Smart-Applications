@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  postgres-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: booksdb
+    ports:
+      # Зовнішній порт 5433, бо 5432 на цьому комп'ютері зайнятий локальним PostgreSQL.
+      # Усередині мережі Docker база доступна як postgres-db:5432.
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d booksdb"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  fastapi-app:
+    build: .
+    depends_on:
+      postgres-db:
+        condition: service_healthy   # чекаємо, доки база реально прийматиме з'єднання
+    environment:
+      DATABASE_URL: "postgresql://user:password@postgres-db:5432/booksdb"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+volumes:
+  pgdata:

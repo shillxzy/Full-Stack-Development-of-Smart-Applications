@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ album.title }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('albums') }}">&larr; Усі альбоми</a>
+<div class="row mt-3 g-4">
+  <div class="col-md-4">
+    {% if album.cover_url %}
+      <img src="{{ album.cover_url }}" class="img-fluid rounded shadow" alt="Обкладинка {{ album.title }}">
+    {% else %}
+      <div class="placeholder-cover album-cover rounded d-flex align-items-center justify-content-center">{{ album.title[:1] }}</div>
+    {% endif %}
+  </div>
+  <div class="col-md-8">
+    <h1>{{ album.title }}</h1>
+    <p class="text-muted">Рік виходу: {{ album.year }}</p>
+    <p>{{ album.description }}</p>
+    <h2 class="h5">Трек-лист</h2>
+    <ol>{% for track in album.track_list %}<li>{{ track }}</li>{% endfor %}</ol>
+    {% if current_user.is_authenticated %}
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('album_edit', album_id=album.id) }}">Редагувати</a>
+        <form method="post" action="{{ url_for('album_delete', album_id=album.id) }}"
+              onsubmit="return confirm('Видалити цей альбом?');">
+          <button class="btn btn-outline-danger">Видалити</button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

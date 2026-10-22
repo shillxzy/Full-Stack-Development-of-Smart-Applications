@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Review Sentiment</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 40px 16px;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        width: 100%;
+        max-width: 560px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        box-sizing: border-box;
+    }
+    h2 { text-align: center; margin: 0 0 8px; color: #333; font-size: 24px; }
+    p.hint { text-align: center; color: #777; margin: 0 0 20px; font-size: 14px; }
+    textarea {
+        width: 100%;
+        height: 140px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: vertical;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px;
+        font-size: 16px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    button:hover { background: #3b78c2; }
+    .result {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .result small { display: block; font-weight: normal; font-size: 14px; margin-top: 4px; }
+    .negative { background: #fdeaea; color: #c62828; }
+    .positive { background: #e8f5e9; color: #2e7d32; }
+    .error { background: #fff4e5; color: #8a5300; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>🎬 Movie Review Sentiment</h2>
+    <p class="hint">Введіть рецензію на фільм англійською — модель визначить, позитивна вона чи негативна.</p>
+    <form action="/predict" method="POST">
+        <textarea name="message" placeholder="e.g. The acting was brilliant and the story kept me hooked...">{{ message }}</textarea>
+        <button type="submit">Check</button>
+    </form>
+    {% if error %}
+        <div class="result error">{{ error }}</div>
+    {% endif %}
+    {% if result %}
+        <div class="result {{ 'positive' if result == 'POSITIVE' else 'negative' }}">
+            {{ '😊 POSITIVE' if result == 'POSITIVE' else '😞 NEGATIVE' }}
+            <small>Впевненість моделі: {{ confidence }}%</small>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Про проект{% endblock %}
+{% block content %}
+<h1 class="mb-3">Про проект</h1>
+<p>Сайт створено в межах лабораторної роботи №11 з дисципліни «Full-Stack розробка».
+   Гурт «Луна Дніпра» вигаданий і використовується лише як навчальний приклад.</p>
+<h2 class="h5 mt-4">Технології</h2>
+<ul>
+  <li><b>Flask</b> — маршрутизація та шаблони Jinja2;</li>
+  <li><b>Flask-SQLAlchemy</b> — моделі <code>User</code> і <code>Album</code> (SQLite локально, PostgreSQL на Heroku);</li>
+  <li><b>Flask-Login</b> — авторизація; паролі зберігаються як хеші (Werkzeug);</li>
+  <li><b>Bootstrap 5</b> — адаптивний інтерфейс;</li>
+  <li><b>Gunicorn</b> + <code>Procfile</code> — запуск на Heroku.</li>
+</ul>
+<h2 class="h5 mt-4">Можливості</h2>
+<p>Усі відвідувачі переглядають сторінки гурту та альбомів. Після входу користувач може
+   додавати, редагувати та видаляти альбоми.</p>
+{% endblock %}

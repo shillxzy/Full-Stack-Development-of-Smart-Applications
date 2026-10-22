@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Новий альбом' if is_new else 'Редагування' }}{% endblock %}
+{% block content %}
+<h1 class="mb-3">{{ 'Новий альбом' if is_new else 'Редагування: ' ~ album.title }}</h1>
+<form method="post" class="col-lg-8">
+  <div class="mb-3"><label class="form-label" for="title">Назва *</label>
+    <input class="form-control" id="title" name="title" required maxlength="120" value="{{ form.title or album.title or '' }}"></div>
+  <div class="mb-3"><label class="form-label" for="year">Рік *</label>
+    <input class="form-control" id="year" name="year" type="number" min="1950" max="2100" required value="{{ form.year or album.year or '' }}"></div>
+  <div class="mb-3"><label class="form-label" for="cover_url">URL обкладинки</label>
+    <input class="form-control" id="cover_url" name="cover_url" type="url" value="{{ form.cover_url or album.cover_url or '' }}"></div>
+  <div class="mb-3"><label class="form-label" for="description">Опис</label>
+    <textarea class="form-control" id="description" name="description" rows="3">{{ form.description or album.description or '' }}</textarea></div>
+  <div class="mb-3"><label class="form-label" for="tracks">Треки (по одному в рядку)</label>
+    <textarea class="form-control" id="tracks" name="tracks" rows="6">{{ form.tracks or album.tracks or '' }}</textarea></div>
+  <button class="btn btn-primary">Зберегти</button>
+  <a class="btn btn-link" href="{{ url_for('albums') if is_new else url_for('album_detail', album_id=album.id) }}">Скасувати</a>
+</form>
+{% endblock %}

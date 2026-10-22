@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Альбоми{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="mb-0">Дискографія</h1>
+  {% if current_user.is_authenticated %}
+    <a class="btn btn-primary" href="{{ url_for('album_create') }}">+ Додати альбом</a>
+  {% endif %}
+</div>
+<div class="row g-3">
+  {% for album in albums %}
+    <div class="col-sm-6 col-lg-4">{% include "_album_card.html" %}</div>
+  {% else %}
+    <p class="text-muted">Альбомів поки немає.</p>
+  {% endfor %}
+</div>
+{% endblock %}

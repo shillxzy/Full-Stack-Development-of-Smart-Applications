@@ -1,0 +1,19 @@
+# Віртуальні середовища та локальні сервіси
+.venv/
+.venv-fastapi/
+.uv-python/
+.pgdata/
+.claude/
+
+# Кеші Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Секрети та локальні бази
+.env
+lab11_flask/instance/
+*.db
+
+# Великий датасет (66 МБ) - відтворюється: python lab16_ml_web/prepare_dataset.py
+lab16_ml_web/IMDB Dataset.csv
